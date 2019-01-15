@@ -20,7 +20,16 @@ parsed.forEach(function(user) {
 
 }
 
-function getRepoContributors(repoOwner, repoName, cb) {
+function getRepoContributors(cb) {
+  var commandArg = process.argv.slice(2)
+  var repoOwner = commandArg[0];
+  var repoName = commandArg[1];
+
+  if (!repoOwner || !repoName) {
+    throw 'You must pass in a repo name and a repo owner.'
+  }
+
+
   var options = {
     url: "https://api.github.com/repos/" + repoOwner + "/" + repoName + "/contributors",
     headers: {
@@ -36,8 +45,6 @@ function getRepoContributors(repoOwner, repoName, cb) {
 
 
 
-
-
-getRepoContributors("jquery", "jquery", parsingFunction)
+getRepoContributors(parsingFunction)
 
 
